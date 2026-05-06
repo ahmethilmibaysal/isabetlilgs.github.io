@@ -477,7 +477,7 @@
         const aylar = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran"];
 
         denemeVerileri.forEach(veri => {
-            const d = new Date(2026, veri.ay, veri.gun);
+            const d = new Date(veri.yil || 2026, veri.ay, veri.gun);
             const isSunday = d.getDay() === 0;
             const isExcludedMay = (d.getMonth() === 4 && d.getDate() >= 24 && d.getDate() <= 31);
 
