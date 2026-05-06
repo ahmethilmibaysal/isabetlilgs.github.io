@@ -461,22 +461,29 @@
     setInterval(updateTimer, 1000);
     updateTimer();
 
-    // ÖĞRENCİ LİSTESİ
-    // ÖNEMLİ: Ocak=0, Şubat=1, Mart=2, Nisan=3, Mayıs=4, Haziran=5
+     // ÖĞRENCİ LİSTESİ
+    // ÖNEMLİ: Ocak=0, Şubat=1, Mart=2, Nisan=3, Mayıs=4, Haziran=5 ... Aralık=11
+    // yil belirtilmezse 2026 kabul edilir
     const denemeVerileri = [
-        { gun: 14, ay: 11, ad: "ZEYNEP BÜŞRA İNCE" yil: 2025},
+        { gun: 11, ay: 11, yil: 2025, ad: "ZEYNEP BÜŞRA İNCE" },
         { gun: 9, ay: 1, ad: "FERYÂL ZEHRA PAK" },
         { gun: 2, ay: 2, ad: "HANZADE SERRA OĞUZ, ZEHRA BETÜL AKICI" },
-        { gun: 4, ay: 4, ad: "HASAN ADİL METE" },
-        
+        { gun: 4, ay: 4, ad: "HASAN ADİL METE" },   
     ];
 
     function listeOlustur() {
         const listContainer = document.getElementById('student-list');
         const gunler = ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"];
-        const aylar = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran"];
+        const aylar = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
 
-        denemeVerileri.forEach(veri => {
+        // Tarihe göre sırala
+        const sirali = [...denemeVerileri].sort((a, b) => {
+            const da = new Date(a.yil || 2026, a.ay, a.gun);
+            const db = new Date(b.yil || 2026, b.ay, b.gun);
+            return da - db;
+        });
+
+        sirali.forEach(veri => {
             const d = new Date(veri.yil || 2026, veri.ay, veri.gun);
             const isSunday = d.getDay() === 0;
             const isExcludedMay = (d.getMonth() === 4 && d.getDate() >= 24 && d.getDate() <= 31);
